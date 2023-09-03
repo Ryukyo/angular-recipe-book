@@ -7,7 +7,10 @@ import { RecipeService } from '../recipes/recipe.service';
 
 @Injectable({ providedIn: 'root' })
 export class DataStorageService {
-  constructor(private http: HttpClient, private recipeService: RecipeService) {}
+  constructor(
+    private http: HttpClient,
+    private recipeService: RecipeService,
+  ) {}
 
   storeRecipes() {
     const recipes = this.recipeService.getRecipes();
@@ -16,8 +19,7 @@ export class DataStorageService {
         'https://some-url.firebaseio.com/recipes.json',
         recipes
       )
-      .subscribe(response => {
-        console.log(response);
+      .subscribe(_response => {
       });
   }
 
@@ -38,6 +40,6 @@ export class DataStorageService {
         tap(recipes => {
           this.recipeService.setRecipes(recipes);
         })
-      )
+      );
   }
 }
